@@ -31,18 +31,18 @@ mapping = {"DOWNLOAD_MASTERFILE": {"latest_time": timedelta(days=1), "col": "dow
                                       "query": {"shop": "AMAZON_AU"}, "label": "Last Price and Quantity update",
                                       "title": "Amazon AU Price & Quantity"},
 
-           "UPDATE_TRACKING_NUMBER_SHIPSTATION": {"latest_time": timedelta(days=1), "col": "update_tracking_number",
+           "UPDATE_TRACKING_NUMBER_SHIPSTATION": {"latest_time": timedelta(hours=6), "col": "update_tracking_number",
                                                   "query": {}, "label": "Tracking number was updated to shipstation",
                                                   "title": "Shipping Shipstation"},
 
-           "UPDATE_TRACKING_NUMBER_WALMART": {"latest_time": timedelta(days=1), "col": "walmart_update_tracking_number",
+           "UPDATE_TRACKING_NUMBER_WALMART": {"latest_time": timedelta(hours=6), "col": "walmart_update_tracking_number",
                                               "query": {}, "label": "Updating tracking number to walmart",
                                               "title": "Shipping Walmart"},
 
-           "ORDER_TAGGING": {"latest_time": timedelta(days=1), "col": "order_tagging",
+           "ORDER_TAGGING": {"latest_time": timedelta(hours=6), "col": "order_tagging",
                              "query": {}, "label": "Orders Tagging after processing", "title": "Tagging Orders"},
 
-           "UPLOAD_ORDERS": {"latest_time": timedelta(days=1), "col": "upload_orders",
+           "UPLOAD_ORDERS": {"latest_time": timedelta(hours=6), "col": "upload_orders",
                              "query": {}, "label": "Orders uploading to ftp", "title": "Uploading Orders"},
 
            }
