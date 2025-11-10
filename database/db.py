@@ -25,11 +25,44 @@ mapping = {"DOWNLOAD_MASTERFILE": {"latest_time": timedelta(days=1), "col": "dow
                                   "query": {"shop": "AMAZON_US"}, "label": "Variant file", "title": "Amazon US"},
 
            "PRICE_UPDATE_AMAZON_US": {"latest_time": timedelta(days=1), "col": "update_amazon",
-                                      "query": {"shop": "AMAZON_US"}, "label": "Last Price and Quantity update",
+                                      "query": {"shop": "AMAZON_US"}, "label": "Last Price and inventory update",
                                       "title": "Amazon US Price & Quantity"},
+
            "PRICE_UPDATE_AMAZON_AU": {"latest_time": timedelta(days=1), "col": "update_amazon",
-                                      "query": {"shop": "AMAZON_AU"}, "label": "Last Price and Quantity update",
+                                      "query": {"shop": "AMAZON_AU"}, "label": "Last Price and inventory update",
                                       "title": "Amazon AU Price & Quantity"},
+
+            "PRICE_UPDATE_SHOPIFY_US": {"latest_time": timedelta(days=1), "col": "update_shopify",
+                                      "query": {"shop": "SHOPIFY_US","prices":True}, "label": "Last price update",
+                                      "title": "SHOPIFY US Price"},
+
+            "PRICE_UPDATE_SHOPIFY_AU": {"latest_time": timedelta(days=1), "col": "update_shopify",
+                                      "query": {"shop": "SHOPIFY_AU","prices":True}, "label": "Last price update",
+                                      "title": "SHOPIFY AU Price"},
+
+            "PRICE_UPDATE_SHOPIFY_CA": {"latest_time": timedelta(days=1), "col": "update_shopify",
+                                      "query": {"shop": "SHOPIFY_CA","prices":True}, "label": "Last price update",
+                                      "title": "SHOPIFY CA Price"},
+
+            "PRICE_UPDATE_SHOPIFY_UK": {"latest_time": timedelta(days=1), "col": "update_shopify",
+                                      "query": {"shop": "SHOPIFY_UK","prices":True}, "label": "Last price update",
+                                      "title": "SHOPIFY UK Price"},
+
+            "INVENTORY_UPDATE_SHOPIFY_US": {"latest_time": timedelta(days=1), "col": "update_shopify",
+                                      "query": {"shop": "SHOPIFY_US","inventory":True}, "label": "Last inventory update",
+                                      "title": "SHOPIFY US Inventory"},
+
+            "INVENTORY_UPDATE_SHOPIFY_AU": {"latest_time": timedelta(days=1), "col": "update_shopify",
+                                      "query": {"shop": "SHOPIFY_AU","inventory":True}, "label": "Last inventory update",
+                                      "title": "SHOPIFY AU Inventory"},
+
+            "INVENTORY_UPDATE_SHOPIFY_CA": {"latest_time": timedelta(days=1), "col": "update_shopify",
+                                      "query": {"shop": "SHOPIFY_CA","inventory":True}, "label": "Last inventory update",
+                                      "title": "SHOPIFY CA Inventory"},
+
+            "INVENTORY_UPDATE_SHOPIFY_UK": {"latest_time": timedelta(days=1), "col": "update_shopify",
+                                      "query": {"shop": "SHOPIFY_UK","inventory":True}, "label": "Last inventory update",
+                                      "title": "SHOPIFY UK Inventory"},
 
            "UPDATE_TRACKING_NUMBER_SHIPSTATION": {"latest_time": timedelta(hours=6), "col": "update_tracking_number",
                                                   "query": {}, "label": "Tracking number was updated to shipstation",

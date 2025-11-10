@@ -30,9 +30,23 @@ def main_page():
 
     st.header("Price/Quantity update scripts")
 
-    update_tasks = st.columns(2)
-    update_tasks[0].metric(**responses["PRICE_UPDATE_AMAZON_US"])
-    update_tasks[1].metric(**responses["PRICE_UPDATE_AMAZON_AU"])
+    amazon_prices_inventory = st.columns(3)
+    amazon_prices_inventory[0].metric(**responses["PRICE_UPDATE_AMAZON_US"])
+    amazon_prices_inventory[1].metric(**responses["PRICE_UPDATE_AMAZON_AU"])
+
+
+    shopify_prices = st.columns(4)
+    shopify_prices[0].metric(**responses["PRICE_UPDATE_SHOPIFY_US"])
+    shopify_prices[1].metric(**responses["PRICE_UPDATE_SHOPIFY_AU"])
+    shopify_prices[2].metric(**responses["PRICE_UPDATE_SHOPIFY_CA"])
+    shopify_prices[3].metric(**responses["PRICE_UPDATE_SHOPIFY_UK"])
+
+
+    shopify_quantity = st.columns(4)
+    shopify_quantity[0].metric(**responses["INVENTORY_UPDATE_SHOPIFY_US"])
+    shopify_quantity[1].metric(**responses["INVENTORY_UPDATE_SHOPIFY_AU"])
+    shopify_quantity[2].metric(**responses["INVENTORY_UPDATE_SHOPIFY_CA"])
+    shopify_quantity[3].metric(**responses["INVENTORY_UPDATE_SHOPIFY_UK"])
 
     st.header("Downloading Scripts")
 
@@ -41,6 +55,12 @@ def main_page():
     shopify_downloads[1].metric(**responses["DOWNLOAD_SHOPIFY_AU"])
     shopify_downloads[2].metric(**responses["DOWNLOAD_SHOPIFY_UK"])
     shopify_downloads[3].metric(**responses["DOWNLOAD_SHOPIFY_CA"])
+
+
+    amazon_downloads = st.columns(4)
+    amazon_downloads[0].metric(**responses["DOWNLOAD_AMAZON_US"])
+    amazon_downloads[1].metric(**responses["DOWNLOAD_AMAZON_AU"])
+    amazon_downloads[2].metric(**responses["DOWNLOAD_MASTERFILE"])
 
 
 def about_page():
