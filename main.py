@@ -1,6 +1,7 @@
 import streamlit as st
-
 from database import db
+from concurrent.futures import wait
+from async_runner import async_runner  # the
 
 st.set_page_config(
     layout="wide",
@@ -8,23 +9,38 @@ st.set_page_config(
 )
 
 
+def get_responses(coros):
+    futures = [async_runner.submit(coro) for coro in coros]
+    done, not_done = wait(futures, timeout=10)
+    results = [r.result() for r in done]
+    for fut in not_done:
+        try:
+            fut.cancel()
+        except Exception:
+            pass
+    return results
+
+
 def main_page():
     """Defines the content for the Main page."""
     st.title("Script Run Dashboard")
     st.header("Main Scripts")
 
-    responses = {}
-    for action, values in list(db.mapping.items()):
-        age, color = db.get_last_run(action)
-        responses[action] = {"label": values["label"], "value": values["title"], "delta": age, "delta_color": color,
-                             "border": True}
+    coros = [db.get_last_run(action) for action in db.mapping]
+    results = get_responses(coros)
 
-    main_tasks = st.columns(2)
+    responses = {r[0]: {"label": db.mapping[r[0]]["label"], "value": db.mapping[r[0]]["title"], "delta": r[1],
+                        "delta_color": r[2],
+                        "border": True} for r in results}
+
+
+
+    main_tasks = st.columns(3)
 
     main_tasks[0].metric(**responses["UPDATE_TRACKING_NUMBER_SHIPSTATION"])
     main_tasks[1].metric(**responses["UPDATE_TRACKING_NUMBER_WALMART"])
 
-    main_tasks2 = st.columns(2)
+    main_tasks2 = st.columns(3)
     main_tasks2[0].metric(**responses["ORDER_TAGGING"])
     main_tasks2[1].metric(**responses["UPLOAD_ORDERS"])
 
@@ -63,9 +79,33 @@ def main_page():
     amazon_downloads[2].metric(**responses["DOWNLOAD_MASTERFILE"])
 
 
-def about_page():
+def get_tracking_updated_orders():
     """Defines the content for the About page."""
-    st.title("About This Dashboard")
+    st.title("Tracking Number Updated")
+    responses = get_responses([db.get_tracking_updated_orders()])
+
+    df =responses[0]
+
+    st.dataframe(df,height=700)
+
+def get_uploaded_orders():
+    """Defines the content for the About page."""
+    st.title("Tracking Number Updated")
+    responses = get_responses([db.get_uploaded_orders()])
+
+    df =responses[0]
+
+    st.dataframe(df,height=700)
+
+
+def shopify_updates():
+    """Defines the content for the About page."""
+    st.title("Tracking Number Updated")
+    responses = get_responses([db.shopify_updates()])
+
+    df =responses[0]
+
+    st.dataframe(df,height=700)
 
 
 # --- Navigation Setup ---
@@ -75,7 +115,9 @@ def about_page():
 # This is a more robust way to pass pages to st.navigation
 pages = [
     st.Page(main_page, title="Main", default=True),
-    st.Page(about_page, title="About"),
+    st.Page(get_tracking_updated_orders, title="Tracking Updated"),
+    st.Page(get_uploaded_orders, title="Uploaded Orders"),
+    st.Page(shopify_updates, title="Shopify Updates"),
 ]
 
 # Create the navigation UI in the sidebar
